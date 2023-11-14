@@ -2,9 +2,9 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/hiroki-it/ddd-backend-with-gin/cmd/infrastructure/database"
-	"github.com/hiroki-it/ddd-backend-with-gin/cmd/infrastructure/logger"
-	"github.com/hiroki-it/ddd-backend-with-gin/cmd/infrastructure/routers"
+	"github.com/yasu2122yasu/life-sim-go/cmd/infrastructure/database"
+	"github.com/yasu2122yasu/life-sim-go/cmd/infrastructure/logger"
+	"github.com/yasu2122yasu/life-sim-go/cmd/infrastructure/routers"
 )
 
 func main() {

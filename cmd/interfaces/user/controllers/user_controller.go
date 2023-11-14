@@ -4,9 +4,9 @@ import (
 	"strconv"
 
 	"github.com/gin-gonic/gin"
-	"github.com/hiroki-it/ddd-backend-with-gin/cmd/interfaces"
-	"github.com/hiroki-it/ddd-backend-with-gin/cmd/usecase/user/boundaries"
-	"github.com/hiroki-it/ddd-backend-with-gin/cmd/usecase/user/requests"
+	"github.com/yasu2122yasu/life-sim-go/cmd/interfaces"
+	"github.com/yasu2122yasu/life-sim-go/cmd/usecase/user/boundaries"
+	"github.com/yasu2122yasu/life-sim-go/cmd/usecase/user/requests"
 )
 
 type UserController struct {

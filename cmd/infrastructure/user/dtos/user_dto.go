@@ -1,10 +1,10 @@
 package dtos
 
 import (
-	"github.com/hiroki-it/ddd-backend-with-gin/cmd/domain/user/entities"
-	"github.com/hiroki-it/ddd-backend-with-gin/cmd/domain/user/ids"
-	"github.com/hiroki-it/ddd-backend-with-gin/cmd/domain/user/values"
-	"github.com/hiroki-it/ddd-backend-with-gin/cmd/infrastructure"
+	"github.com/yasu2122yasu/life-sim-go/cmd/domain/user/entities"
+	"github.com/yasu2122yasu/life-sim-go/cmd/domain/user/ids"
+	"github.com/yasu2122yasu/life-sim-go/cmd/domain/user/values"
+	"github.com/yasu2122yasu/life-sim-go/cmd/infrastructure"
 )
 
 // UserDTO NOTE: 利便性のため，DTOはパブリックフィールドとします．

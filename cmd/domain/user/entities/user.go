@@ -1,9 +1,9 @@
 package entities
 
 import (
-	"github.com/hiroki-it/ddd-backend-with-gin/cmd/domain"
-	"github.com/hiroki-it/ddd-backend-with-gin/cmd/domain/user/ids"
-	"github.com/hiroki-it/ddd-backend-with-gin/cmd/domain/user/values"
+	"github.com/yasu2122yasu/life-sim-go/cmd/domain"
+	"github.com/yasu2122yasu/life-sim-go/cmd/domain/user/ids"
+	"github.com/yasu2122yasu/life-sim-go/cmd/domain/user/values"
 )
 
 type User struct {

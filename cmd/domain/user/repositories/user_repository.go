@@ -1,8 +1,8 @@
 package repositories
 
 import (
-	"github.com/hiroki-it/ddd-backend-with-gin/cmd/domain/user/entities"
-	"github.com/hiroki-it/ddd-backend-with-gin/cmd/domain/user/ids"
+	"github.com/yasu2122yasu/life-sim-go/cmd/domain/user/entities"
+	"github.com/yasu2122yasu/life-sim-go/cmd/domain/user/ids"
 )
 
 type UserRepository interface {

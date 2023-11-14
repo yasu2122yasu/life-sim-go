@@ -1,4 +1,4 @@
-module github.com/hiroki-it/ddd-backend-with-gin
+module github.com/yasu2122yasu/life-sim-go
 
 go 1.16
 
@@ -9,4 +9,4 @@ require (
 	gorm.io/gorm v1.21.11
 )
 
-replace github.com/hiroki-it/ddd-backend-with-gin => /
+replace github.com/yasu2122yasu/life-sim-go => /
