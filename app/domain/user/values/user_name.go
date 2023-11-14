@@ -1,6 +1,6 @@
 package values
 
-import "github.com/hiroki-it/ddd-backend-with-gin/cmd/domain"
+import "github.com/yasu2122yasu/life-sim-go/app/domain"
 
 type UserName struct {
 	lastName      string

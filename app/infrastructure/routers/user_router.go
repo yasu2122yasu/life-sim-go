@@ -2,10 +2,10 @@ package routers
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/hiroki-it/ddd-backend-with-gin/cmd/infrastructure/database"
-	"github.com/hiroki-it/ddd-backend-with-gin/cmd/infrastructure/user/repositories"
-	"github.com/hiroki-it/ddd-backend-with-gin/cmd/interfaces/user/controllers"
-	"github.com/hiroki-it/ddd-backend-with-gin/cmd/usecase/user/interactors"
+	"github.com/yasu2122yasu/life-sim-go/app/infrastructure/database"
+	"github.com/yasu2122yasu/life-sim-go/app/infrastructure/user/repositories"
+	"github.com/yasu2122yasu/life-sim-go/app/interfaces/user/controllers"
+	"github.com/yasu2122yasu/life-sim-go/app/usecase/user/interactors"
 )
 
 // UserRouter ユーザに関してルーティングを実行します．

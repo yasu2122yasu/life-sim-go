@@ -2,8 +2,8 @@ package routers
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/hiroki-it/ddd-backend-with-gin/cmd/infrastructure/database"
-	"github.com/hiroki-it/ddd-backend-with-gin/cmd/infrastructure/middlewares"
+	"github.com/yasu2122yasu/life-sim-go/app/infrastructure/database"
+	"github.com/yasu2122yasu/life-sim-go/app/infrastructure/middlewares"
 )
 
 type Router struct {

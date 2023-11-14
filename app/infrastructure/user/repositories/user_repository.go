@@ -1,11 +1,11 @@
 package repositories
 
 import (
-	"github.com/hiroki-it/ddd-backend-with-gin/cmd/domain/user/entities"
-	"github.com/hiroki-it/ddd-backend-with-gin/cmd/domain/user/ids"
-	"github.com/hiroki-it/ddd-backend-with-gin/cmd/domain/user/repositories"
-	"github.com/hiroki-it/ddd-backend-with-gin/cmd/infrastructure/database"
-	"github.com/hiroki-it/ddd-backend-with-gin/cmd/infrastructure/user/dtos"
+	"github.com/yasu2122yasu/life-sim-go/app/domain/user/entities"
+	"github.com/yasu2122yasu/life-sim-go/app/domain/user/ids"
+	"github.com/yasu2122yasu/life-sim-go/app/domain/user/repositories"
+	"github.com/yasu2122yasu/life-sim-go/app/infrastructure/database"
+	"github.com/yasu2122yasu/life-sim-go/app/infrastructure/user/dtos"
 )
 
 type UserRepository struct {

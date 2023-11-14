@@ -1,8 +1,8 @@
 package boundaries
 
 import (
-	"github.com/hiroki-it/ddd-backend-with-gin/cmd/usecase/user/requests"
-	"github.com/hiroki-it/ddd-backend-with-gin/cmd/usecase/user/responses"
+	"github.com/yasu2122yasu/life-sim-go/app/usecase/user/requests"
+	"github.com/yasu2122yasu/life-sim-go/app/usecase/user/responses"
 )
 
 type UserInputBoundary interface {

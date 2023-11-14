@@ -1,13 +1,13 @@
 package interactors
 
 import (
-	"github.com/hiroki-it/ddd-backend-with-gin/cmd/domain/user/entities"
-	"github.com/hiroki-it/ddd-backend-with-gin/cmd/domain/user/ids"
-	"github.com/hiroki-it/ddd-backend-with-gin/cmd/domain/user/repositories"
-	"github.com/hiroki-it/ddd-backend-with-gin/cmd/domain/user/values"
-	"github.com/hiroki-it/ddd-backend-with-gin/cmd/usecase/user/boundaries"
-	"github.com/hiroki-it/ddd-backend-with-gin/cmd/usecase/user/requests"
-	"github.com/hiroki-it/ddd-backend-with-gin/cmd/usecase/user/responses"
+	"github.com/yasu2122yasu/life-sim-go/app/domain/user/entities"
+	"github.com/yasu2122yasu/life-sim-go/app/domain/user/ids"
+	"github.com/yasu2122yasu/life-sim-go/app/domain/user/repositories"
+	"github.com/yasu2122yasu/life-sim-go/app/domain/user/values"
+	"github.com/yasu2122yasu/life-sim-go/app/usecase/user/boundaries"
+	"github.com/yasu2122yasu/life-sim-go/app/usecase/user/requests"
+	"github.com/yasu2122yasu/life-sim-go/app/usecase/user/responses"
 )
 
 type UserInteractor struct {
