@@ -31,6 +31,9 @@ func main() {
 	if *f == "migrate" {
 		migrate()
 	}
-	ro.HandleRequest()
+	http.HandleFunc("/fetch-todos", ro.FetchTodos)
+	http.HandleFunc("/add-todo", ro.AddTodo)
+	http.HandleFunc("/delete-todo", ro.DeleteTodo)
+	http.HandleFunc("/change-todo", ro.ChangeTodo)
 	http.ListenAndServe(":8080", nil)
 }
