@@ -23,7 +23,7 @@ func main() {
 		panic("Failed to connect to database")
 	}
 
-	err = db.AutoMigrate(&model.User{})
+	// err = db.AutoMigrate(&model.User{})
 	if err != nil {
 		panic("Failed to migrate database")
 	}
