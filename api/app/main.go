@@ -29,13 +29,14 @@ func main() {
 	}
 
 	// Ginのルーターの初期化
-	router := gin.Default()
-	router.Use(middleware.Cors())
+	r := gin.Default()
+	r.Use(middleware.Cors())
 
-	router.GET("/users/:id", getUser)
-	router.POST("/users", createUser)
+	r.GET("/users/:id", getUser)
+	r.POST("/users", createUser)
+	r.GET("/users", getAllUser)
 
-	router.Run(":8080")
+	r.Run(":8080")
 }
 
 func getUser(c *gin.Context) {
@@ -65,4 +66,15 @@ func createUser(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusCreated, user)
+}
+
+func getAllUser(c *gin.Context) {
+	var users []model.User
+	result := db.Find(&users)
+	if result.Error != nil {
+		c.JSON(http.StatusNotFound, gin.H{"error": "User not found"})
+		return
+	}
+
+	c.JSON(http.StatusOK, users)
 }
