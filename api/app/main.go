@@ -1,10 +1,9 @@
 package main
 
 import (
+	"app/controller"
 	"app/middleware"
-	"app/model"
 	"fmt"
-	"net/http"
 	"os"
 
 	"github.com/gin-gonic/gin"
@@ -32,49 +31,9 @@ func main() {
 	r := gin.Default()
 	r.Use(middleware.Cors())
 
-	r.GET("/users/:id", getUser)
-	r.POST("/users", createUser)
-	r.GET("/users", getAllUser)
+	r.GET("/users/:id", controller.GetUser)
+	r.POST("/users", controller.CreateUser)
+	r.GET("/users", controller.GetAllUser)
 
 	r.Run(":8080")
-}
-
-func getUser(c *gin.Context) {
-	userID := c.Param("id")
-
-	var user model.User
-	result := db.First(&user, userID)
-	if result.Error != nil {
-		c.JSON(http.StatusNotFound, gin.H{"error": "User not found"})
-		return
-	}
-
-	c.JSON(http.StatusOK, user)
-}
-
-func createUser(c *gin.Context) {
-	var user model.User
-	if err := c.ShouldBindJSON(&user); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	}
-
-	result := db.Create(&user)
-	if result.Error != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to create user"})
-		return
-	}
-
-	c.JSON(http.StatusCreated, user)
-}
-
-func getAllUser(c *gin.Context) {
-	var users []model.User
-	result := db.Find(&users)
-	if result.Error != nil {
-		c.JSON(http.StatusNotFound, gin.H{"error": "User not found"})
-		return
-	}
-
-	c.JSON(http.StatusOK, users)
 }
