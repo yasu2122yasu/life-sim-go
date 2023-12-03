@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Header from './Header';
 import SideBar from './SideBar';
+import LoginComponent from './LoginComponent';
 
 interface UserData {
   ID: number;
@@ -15,6 +16,12 @@ interface UserData {
 function UserShow() {
   const [userId, setUserId] = useState<number>(1);
   const [userData, setUserData] = useState<UserData | null>(null);
+
+  const handleLoginSuccess = () => {
+    console.log('User successfully logged in.');
+    // ログイン後の処理をここで行う
+    // 例: ユーザーを別のページにリダイレクトする
+  };
 
   useEffect(() => {
     axios
@@ -47,7 +54,7 @@ function UserShow() {
       <p>Email: {userData.Email}</p>
       <p>Created At: {userData.CreatedAt}</p>
       <p>Updated At: {userData.UpdatedAt}</p>
-      <div>あ</div>
+      <LoginComponent onLoginSuccess={handleLoginSuccess} />
     </div>
   );
 }

@@ -1,20 +1,20 @@
 package controller
 
 import (
+	"app/database"
 	"app/model"
+	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"gorm.io/gorm"
+	"golang.org/x/crypto/bcrypt"
 )
-
-var db *gorm.DB
 
 func GetUser(c *gin.Context) {
 	userID := c.Param("id")
 
 	var user model.User
-	result := db.First(&user, userID)
+	result := database.Db.First(&user, userID)
 	if result.Error != nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": "User not found"})
 		return
@@ -30,7 +30,16 @@ func CreateUser(c *gin.Context) {
 		return
 	}
 
-	result := db.Create(&user)
+	// パスワードのハッシュ化
+	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(user.Password), bcrypt.DefaultCost)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to hash password"})
+		return
+	}
+	user.Password = string(hashedPassword)
+
+	// データベースにユーザーを作成
+	result := database.Db.Create(&user)
 	if result.Error != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to create user"})
 		return
@@ -41,11 +50,13 @@ func CreateUser(c *gin.Context) {
 
 func GetAllUser(c *gin.Context) {
 	var users []model.User
-	result := db.Find(&users)
+	result := database.Db.Find(&users)
 	if result.Error != nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": "User not found"})
 		return
 	}
+
+	fmt.Println(5739729)
 
 	c.JSON(http.StatusOK, users)
 }
