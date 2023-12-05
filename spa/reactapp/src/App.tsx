@@ -1,7 +1,7 @@
-import UserShow from './components/UserShow';
+import TopPage from './pages/TopPage';
 
 function App() {
-  return <UserShow />;
+  return <TopPage />;
 }
 
 export default App;
