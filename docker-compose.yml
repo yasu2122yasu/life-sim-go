@@ -35,7 +35,7 @@ services:
     ports:
       - 3306:3306
     volumes:
-      - ./mysql/init:/docker-entrypoint-initdb.d
+      - ./mysql/initsql:/docker-entrypoint-initdb.d
 
   # フロントエンドのコンテナ
   spa:
@@ -50,4 +50,4 @@ services:
       - '3000:3000'
 
 volumes:
-  db-store:
+  db-store-life:
