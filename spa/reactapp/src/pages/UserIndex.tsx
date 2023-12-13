@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 import Header from './../components/Header';
 
 interface UserData {
@@ -33,8 +34,9 @@ export const UserIndex = () => {
       <h1>User Data</h1>
       {userData.map((user) => (
         <div key={user.ID}>
-          <p>ID: {user.ID}</p>
-          <p>Name: {user.Name}</p>
+          <Link to={`/user/${user.ID}`}>
+            <p>Name: {user.Name}</p>
+          </Link>
           <p>Email: {user.Email}</p>
           <p>Created At: {user.CreatedAt}</p>
           <p>Updated At: {user.UpdatedAt}</p>
