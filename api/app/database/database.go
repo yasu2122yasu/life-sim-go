@@ -1,6 +1,7 @@
 package database
 
 import (
+	"app/model"
 	"fmt"
 	"os"
 
@@ -18,4 +19,6 @@ func ConnectDatabase() {
 	if err != nil {
 		panic("Failed to connect to database")
 	}
+
+	Db.AutoMigrate(&model.User{}, &model.Character{}, &model.Ability{}, &model.Event{}, &model.EventDetail{}, &model.Turn{})
 }

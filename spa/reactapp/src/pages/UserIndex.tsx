@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Header from './Header';
-import SideBar from './SideBar';
-import LoginComponent from './LoginComponent';
+import Header from './../components/Header';
+import SideBar from './../components/SideBar';
 
 interface UserData {
   ID: number;
@@ -13,19 +12,13 @@ interface UserData {
   UpdatedAt: string;
 }
 
-function UserShow() {
+export const UserIndex = () => {
   const [userId, setUserId] = useState<number>(1);
   const [userData, setUserData] = useState<UserData | null>(null);
 
-  const handleLoginSuccess = () => {
-    console.log('User successfully logged in.');
-    // ログイン後の処理をここで行う
-    // 例: ユーザーを別のページにリダイレクトする
-  };
-
   useEffect(() => {
     axios
-      .get(`http://localhost:8080/users/${userId}`)
+      .get(`http://localhost:8080/users/1`)
       .then((response) => {
         setUserData(response.data);
       })
@@ -54,9 +47,6 @@ function UserShow() {
       <p>Email: {userData.Email}</p>
       <p>Created At: {userData.CreatedAt}</p>
       <p>Updated At: {userData.UpdatedAt}</p>
-      <LoginComponent onLoginSuccess={handleLoginSuccess} />
     </div>
   );
-}
-
-export default UserShow;
+};

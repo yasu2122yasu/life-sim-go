@@ -14,7 +14,7 @@ func GetUser(c *gin.Context) {
 	userID := c.Param("id")
 
 	var user model.User
-	result := database.Db.Select("id", "name", "email", "password", "created_at", "updated_at").First(&user, userID)
+	result := database.Db.First(&user, userID)
 	if result.Error != nil {
 		c.JSON(http.StatusNotFound, gin.H{"error": "User not found"})
 		return
