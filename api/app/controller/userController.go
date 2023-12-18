@@ -3,6 +3,7 @@ package controller
 import (
 	"app/database"
 	"app/model"
+	"app/repository"
 	"fmt"
 	"net/http"
 
@@ -11,14 +12,9 @@ import (
 )
 
 func GetUser(c *gin.Context) {
-	userID := c.Param("id")
+	user, err := repository.GetUserRepository(c)
 
-	var user model.User
-	result := database.Db.First(&user, userID)
-	if result.Error != nil {
-		c.JSON(http.StatusNotFound, gin.H{"error": "User not found"})
-		return
-	}
+	fmt.Println(err)
 
 	c.JSON(http.StatusOK, user)
 }

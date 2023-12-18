@@ -3,7 +3,6 @@ package controller
 import (
 	"app/database"
 	"app/model"
-	"fmt"
 	"net/http"
 	"time"
 
@@ -26,11 +25,6 @@ func Login(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "invalid request"})
 		return
 	}
-	fmt.Println(122)
-
-	fmt.Println(creds.Email)
-
-	fmt.Println("バックエンドを通過しているのか確認")
 
 	// データベースからユーザーを検索
 	var user model.User

@@ -18,6 +18,8 @@ func Router() {
 	r.POST("/login", Login)
 
 	r.GET("characters/:id", GetCharacter)
+	// repository内で指定されているid=1の情報を取得する。
+	r.GET("character", GetCharacterWithTurn)
 
 	r.Run(":8080")
 }
