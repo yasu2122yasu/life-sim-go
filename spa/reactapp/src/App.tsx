@@ -1,5 +1,10 @@
-import { TopPage } from './pages/TopPage';
+import { BrowserRouter } from 'react-router-dom';
+import { Router } from './router/Router';
 
 export default function App() {
-  return <TopPage />;
+  return (
+    <BrowserRouter>
+      <Router />
+    </BrowserRouter>
+  );
 }
