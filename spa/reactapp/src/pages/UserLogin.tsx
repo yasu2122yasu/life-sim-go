@@ -1,23 +1,23 @@
+// UserLogin.tsx
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { loginUserAsync, AppDispatch, RootState } from './../store/index';
+import { loginUserAsync, RootState, AppDispatch } from './../store/index';
 
 export const UserLogin: React.FC = () => {
-  const [localEmail, setLocalEmail] = useState(''); // ローカルステートのための関数名を変更
-  const [password, setPassword] = useState('');
+  const [localEmail, setLocalEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
   const dispatch = useDispatch<AppDispatch>();
   const error = useSelector((state: RootState) => state.login.error);
   const navigate = useNavigate();
 
   const handleLogin = async () => {
-    try {
-      // 非同期アクション loginUserAsync を発行
-      await dispatch(loginUserAsync({ email: localEmail, password }));
+    const actionResult = await dispatch(loginUserAsync({ email: localEmail, password }));
+    if (loginUserAsync.fulfilled.match(actionResult)) {
+      // ログイン成功時の処理
       navigate('/user/afterlogin');
-    } catch (err) {
-      console.log(err);
     }
+    // エラーはReduxストアを通じてハンドリングされるため、ここでは何もしない
   };
 
   return (

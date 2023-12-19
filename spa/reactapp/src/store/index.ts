@@ -1,5 +1,5 @@
 import { configureStore, createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 
 // ログインリクエストのための型定義
 interface LoginRequest {
@@ -9,7 +9,13 @@ interface LoginRequest {
 
 // レスポンスの型定義
 interface LoginResponse {
+  email: string;
   token: string;
+}
+
+// エラーレスポンスの型定義
+interface ErrorResponse {
+  message: string;
 }
 
 // 初期状態の型定義
@@ -28,45 +34,53 @@ const initialLoginState: LoginState = {
 };
 
 // 非同期アクションの定義
-export const loginUserAsync = createAsyncThunk(
+export const loginUserAsync = createAsyncThunk<LoginResponse, LoginRequest, { rejectValue: ErrorResponse }>(
   'login/loginUserAsync',
-  async ({ email, password }: LoginRequest, { dispatch }) => {
-    // 成功した場合、emailを保存
-    dispatch(setEmail(email));
-    const response = await axios.post<LoginResponse>('http://localhost:8080/login', {
-      email,
-      password,
-    });
-    return response.data;
+  async ({ email, password }, { rejectWithValue }) => {
+    try {
+      const response = await axios.post<LoginResponse>('http://localhost:8080/login', {
+        email,
+        password,
+      });
+      return response.data;
+    } catch (error) {
+      let errResponse = (error as AxiosError<ErrorResponse>).response;
+      return rejectWithValue(errResponse?.data || { message: 'Unknown error occurred' });
+    }
   }
 );
 
+// スライスの定義
 const loginSlice = createSlice({
   name: 'login',
   initialState: initialLoginState,
   reducers: {
-    setEmail: (state, action: PayloadAction<string>) => {
-      state.email = action.payload;
-    },
+    // ここに必要な同期的なリデューサーを追加することができます
   },
   extraReducers: (builder) => {
     builder.addCase(loginUserAsync.fulfilled, (state, action: PayloadAction<LoginResponse>) => {
+      // ログインが成功した場合の状態更新
+      state.email = action.payload.email;
       state.isLoggedIn = true;
       state.token = action.payload.token;
       state.error = null;
     });
+    builder.addCase(loginUserAsync.rejected, (state, action: PayloadAction<ErrorResponse | undefined>) => {
+      // ログインが失敗した場合の状態更新
+      state.error = action.payload?.message || 'Login failed';
+    });
   },
 });
 
-const rootReducer = {
-  login: loginSlice.reducer,
-};
-
+// ストアの設定
 const store = configureStore({
-  reducer: rootReducer,
+  reducer: {
+    login: loginSlice.reducer,
+  },
 });
 
+// 型定義のエクスポート
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
-export const { setEmail } = loginSlice.actions;
+
 export default store;
