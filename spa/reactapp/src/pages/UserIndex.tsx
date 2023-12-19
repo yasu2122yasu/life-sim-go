@@ -24,7 +24,7 @@ export const UserIndex = () => {
       .catch((error) => {
         console.error('Error fetching data: ', error);
       });
-  }, []); // コンポーネントがマウントされたときに一度だけ実行
+  }, []);
 
   if (userData.length === 0) return <div>Loading...</div>;
 
