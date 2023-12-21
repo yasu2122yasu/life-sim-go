@@ -17,7 +17,6 @@ export const UserLogin: React.FC = () => {
       // ログイン成功時の処理
       navigate('/user/afterlogin');
     }
-    // エラーはReduxストアを通じてハンドリングされるため、ここでは何もしない
   };
 
   return (

@@ -6,17 +6,20 @@ import (
 
 type User struct {
 	gorm.Model
-	Name     string
-	Email    string
-	Password string
+	Name       string
+	Email      string `gorm:"unique"`
+	Password   string
+	Characters []Character
 }
 
 type Character struct {
 	gorm.Model
 	Name        string
 	Description string
-	UserID      int
+	UserID      uint
 	User        User
+	Abilities   []Ability `gorm:"foreignKey:CharacterID"`
+	Turns       []Turn    `gorm:"foreignKey:CharacterID"`
 }
 
 type Ability struct {
@@ -27,19 +30,19 @@ type Ability struct {
 	Stress      uint8
 	Decision    uint8
 	Luck        uint8
-	CharacterID int
+	CharacterID uint `gorm:"column:character_id;constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
 	Character   Character
 }
 
 type Event struct {
 	gorm.Model
 	Description  string
-	EventDetails []EventDetail `gorm:"foreignKey:EventId"`
+	EventDetails []EventDetail `gorm:"foreignKey:EventID"`
 }
 
 type EventDetail struct {
 	gorm.Model
-	EventId uint
+	EventID uint `gorm:"column:event_id;constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
 	Event   Event
 	Rate    uint8
 }
@@ -47,5 +50,6 @@ type EventDetail struct {
 type Turn struct {
 	gorm.Model
 	Week        string
-	CharacterID uint `gorm:"column:CharacterId"`
+	CharacterID uint `gorm:"column:character_id;constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
+	Character   Character
 }
