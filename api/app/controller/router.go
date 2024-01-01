@@ -16,9 +16,9 @@ func Router() {
 	r.POST("/users", CreateUser)
 	r.GET("/users", GetAllUser)
 	r.POST("/login", Login)
+	r.POST("/user/user-detail", GetUserDetail)
 
 	r.GET("characters/:id", GetCharacter)
-	// repository内で指定されているid=1の情報を取得する。
 	r.GET("character", GetCharacterWithTurn)
 
 	r.Run(":8080")

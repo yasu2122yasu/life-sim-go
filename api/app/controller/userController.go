@@ -2,8 +2,11 @@ package controller
 
 import (
 	"app/database"
+	"app/middleware"
 	"app/model"
 	"app/repository"
+	"app/request"
+	"app/response"
 	"fmt"
 	"net/http"
 
@@ -17,6 +20,28 @@ func GetUser(c *gin.Context) {
 	fmt.Println(err)
 
 	c.JSON(http.StatusOK, user)
+}
+
+// 認証したユーザー自身の詳細を取得する。認証ユーザーのみアクセス可能
+func GetUserDetail(c *gin.Context) {
+	var clreq request.CheckLoginRequest
+	var clres response.CheckLoginResponse
+
+	if err := c.ShouldBindJSON(&clreq); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	jwtToken, err := middleware.VerifyToken(clreq)
+
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": "JWT tokenが異なる"})
+	}
+
+	fmt.Println(jwtToken)
+
+	clres.Status = true
+	c.JSON(http.StatusOK, clres.Status)
 }
 
 func CreateUser(c *gin.Context) {

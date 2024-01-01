@@ -21,4 +21,5 @@ func ConnectDatabase() {
 	}
 
 	Db.AutoMigrate(&model.User{}, &model.Character{}, &model.Ability{}, &model.Event{}, &model.EventDetail{}, &model.Turn{})
+	UserSeed(Db)
 }

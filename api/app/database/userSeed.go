@@ -25,8 +25,9 @@ func UserSeed(db *gorm.DB) error {
 	}
 	users := model.User{Name: "abe", Email: "mailmail@gmail.com", Password: "password"}
 
-	passwordHash := hashPassword(users.Password)
-	users.Password = passwordHash
+	// seeding時には、パスワードのハッシュ化はおこなわない
+	// passwordHash := hashPassword(users.Password)
+	// users.Password = passwordHash
 
 	if err := db.Create(&users).Error; err != nil {
 		fmt.Printf("%+v", err)

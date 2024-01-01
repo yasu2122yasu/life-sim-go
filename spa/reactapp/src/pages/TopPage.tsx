@@ -12,7 +12,8 @@ export const TopPage: React.FC = () => {
       <Link to="/user/login">UserLogin</Link>
       <br />
       <Link to="/user/register">UserRegister</Link>
-      <br />
+      {/* 個別ログインユーザーのみアクセス可能 */}
+      <Link to="/user/after-login">ログイン済みユーザーのみアクセス可能</Link>
     </div>
   );
 };

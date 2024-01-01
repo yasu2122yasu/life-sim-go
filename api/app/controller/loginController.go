@@ -2,17 +2,14 @@ package controller
 
 import (
 	"app/database"
+	"app/middleware"
 	"app/model"
 	"net/http"
-	"time"
 
 	"github.com/gin-gonic/gin"
-	"github.com/golang-jwt/jwt/v4"
 	"golang.org/x/crypto/bcrypt"
 	"gorm.io/gorm"
 )
-
-var jwtKey = []byte("secret") // 本番環境ではもっと安全な方法でキーを管理する
 
 type LoginCredentials struct {
 	Email    string `json:"email"`
@@ -40,15 +37,10 @@ func Login(c *gin.Context) {
 		return
 	}
 
-	// JWTトークンの生成
-	expirationTime := time.Now().Add(24 * time.Hour)
-	claims := &jwt.RegisteredClaims{
-		ExpiresAt: jwt.NewNumericDate(expirationTime),
-	}
-	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-	tokenString, err := token.SignedString(jwtKey)
+	tokenString, err := middleware.GenerateToken()
+
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": "could not generate token"})
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "incorrect tokenString"})
 		return
 	}
 

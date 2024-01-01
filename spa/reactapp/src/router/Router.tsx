@@ -5,7 +5,6 @@ import { UserIndex } from '../pages/UserIndex';
 import { UserDetail } from '../pages/UserDetail';
 import { UserLogin } from '../pages/UserLogin';
 import { UserRegister } from '../pages/UserRegister';
-import { AfterLogin } from '../pages/AfterLogin';
 
 export const Router = () => {
   return (
@@ -15,7 +14,7 @@ export const Router = () => {
       <Route path="/user/:userId" element={<UserDetail />} />
       <Route path="/user/login" element={<UserLogin />} />
       <Route path="/user/register" element={<UserRegister />} />
-      <Route path="/user/afterlogin" element={<AfterLogin />} />
+      <Route path="/user/user-detail" element={<UserDetail />} />
     </Routes>
   );
 };
