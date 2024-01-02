@@ -22,7 +22,7 @@ func GetUser(c *gin.Context) {
 	c.JSON(http.StatusOK, user)
 }
 
-// 認証したユーザー自身の詳細を取得する。認証ユーザーのみアクセス可能
+// 認証したユーザーのみがアクセスできる
 func GetUserDetail(c *gin.Context) {
 	var clreq request.CheckLoginRequest
 	var clres response.CheckLoginResponse
@@ -40,8 +40,8 @@ func GetUserDetail(c *gin.Context) {
 
 	fmt.Println(jwtToken)
 
-	clres.Status = true
-	c.JSON(http.StatusOK, clres.Status)
+	clres.AuthStatus = true
+	c.JSON(http.StatusOK, clres.AuthStatus)
 }
 
 func CreateUser(c *gin.Context) {

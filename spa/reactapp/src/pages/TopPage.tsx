@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Router } from './../router/Router';
 
 export const TopPage: React.FC = () => {
   return (
@@ -13,7 +12,7 @@ export const TopPage: React.FC = () => {
       <br />
       <Link to="/user/register">UserRegister</Link>
       {/* 個別ログインユーザーのみアクセス可能 */}
-      <Link to="/user/after-login">ログイン済みユーザーのみアクセス可能</Link>
+      <Link to="/user/user-auth">ログイン済みユーザーのみアクセス可能</Link>
     </div>
   );
 };

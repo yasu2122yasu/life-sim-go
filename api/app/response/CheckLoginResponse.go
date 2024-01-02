@@ -1,5 +1,5 @@
 package response
 
 type CheckLoginResponse struct {
-	Status bool `json:"status"`
+	AuthStatus bool `json:"auth-status"`
 }

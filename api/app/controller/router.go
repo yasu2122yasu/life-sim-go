@@ -16,7 +16,7 @@ func Router() {
 	r.POST("/users", CreateUser)
 	r.GET("/users", GetAllUser)
 	r.POST("/login", Login)
-	r.POST("/user/user-detail", GetUserDetail)
+	r.POST("/user/user-auth", GetUserDetail)
 
 	r.GET("characters/:id", GetCharacter)
 	r.GET("character", GetCharacterWithTurn)

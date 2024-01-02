@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { checkLoginUser } from '../features/login/LoginSlice';
 import axios from 'axios';
 
 export const UserRegister = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleRegister = async () => {
