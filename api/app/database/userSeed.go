@@ -35,3 +35,22 @@ func UserSeed(db *gorm.DB) error {
 
 	return nil
 }
+
+func EventSeed(db *gorm.DB) error {
+	var count int64
+	db.Model(&model.Event{}).Count(&count)
+	if count > 0 {
+		return nil
+	}
+	events := model.Event{Description: "event1"}
+
+	// seeding時には、パスワードのハッシュ化はおこなわない
+	// passwordHash := hashPassword(users.Password)
+	// users.Password = passwordHash
+
+	if err := db.Create(&events).Error; err != nil {
+		fmt.Printf("%+v", err)
+	}
+
+	return nil
+}

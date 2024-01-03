@@ -1,14 +1,17 @@
 package middleware
 
 import (
-	"app/request"
-	"strings"
 	"time"
 
 	"github.com/golang-jwt/jwt/v4"
 )
 
 var jwtKey = []byte("secret") // 本番環境ではもっと安全な方法でキーを管理する
+
+type Claims struct {
+	Email string `json:"email"`
+	jwt.StandardClaims
+}
 
 // tokenの発行はフロントエンドで行い、クレームの設定と署名をバックエンドで行う
 func GenerateToken() (string, error) {
@@ -28,9 +31,7 @@ func GenerateToken() (string, error) {
 	return tokenString, nil
 }
 
-func VerifyToken(r request.CheckLoginRequest) (*jwt.Token, error) {
-	tokenString := r.AuthToken
-	tokenString = strings.TrimPrefix(tokenString, "Bearer ")
+func VerifyToken(tokenString string) (*jwt.Token, error) {
 
 	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
 		return []byte("secret"), nil // CreateTokenにて指定した文字列を使います

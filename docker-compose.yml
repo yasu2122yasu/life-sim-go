@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   api:
-    container_name: api
+    container_name: life-api
     build:
       context: ./api
       dockerfile: Dockerfile
@@ -20,7 +20,7 @@ services:
     platform: linux/amd64
 
   db:
-    container_name: db
+    container_name: life-db
     build:
       context: ./mysql
       dockerfile: Dockerfile
@@ -41,7 +41,7 @@ services:
   # フロントエンドのコンテナ
   spa:
     build: ./spa/reactapp
-    container_name: spa
+    container_name: life-spa
     tty: true
     working_dir: /usr/src/app
     volumes:

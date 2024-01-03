@@ -2,11 +2,8 @@ package controller
 
 import (
 	"app/database"
-	"app/middleware"
 	"app/model"
 	"app/repository"
-	"app/request"
-	"app/response"
 	"fmt"
 	"net/http"
 
@@ -24,24 +21,14 @@ func GetUser(c *gin.Context) {
 
 // 認証したユーザーのみがアクセスできる
 func GetUserDetail(c *gin.Context) {
-	var clreq request.CheckLoginRequest
-	var clres response.CheckLoginResponse
-
-	if err := c.ShouldBindJSON(&clreq); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+	var users []model.User
+	result := database.Db.Find(&users)
+	if result.Error != nil {
+		c.JSON(http.StatusNotFound, gin.H{"error": "User not found"})
 		return
 	}
 
-	jwtToken, err := middleware.VerifyToken(clreq)
-
-	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": "JWT tokenが異なる"})
-	}
-
-	fmt.Println(jwtToken)
-
-	clres.AuthStatus = true
-	c.JSON(http.StatusOK, clres.AuthStatus)
+	c.JSON(http.StatusOK, users)
 }
 
 func CreateUser(c *gin.Context) {
@@ -76,8 +63,6 @@ func GetAllUser(c *gin.Context) {
 		c.JSON(http.StatusNotFound, gin.H{"error": "User not found"})
 		return
 	}
-
-	fmt.Println(5739729)
 
 	c.JSON(http.StatusOK, users)
 }
