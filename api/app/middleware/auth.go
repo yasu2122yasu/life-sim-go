@@ -1,6 +1,7 @@
 package middleware
 
 import (
+	"fmt"
 	"time"
 
 	"github.com/golang-jwt/jwt/v4"
@@ -32,10 +33,10 @@ func GenerateToken() (string, error) {
 }
 
 func VerifyToken(tokenString string) (*jwt.Token, error) {
-
 	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
 		return []byte("secret"), nil // CreateTokenにて指定した文字列を使います
 	})
+	fmt.Println(token)
 	if err != nil {
 		return nil, err
 	}

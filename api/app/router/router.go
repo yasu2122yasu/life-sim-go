@@ -13,13 +13,11 @@ func Router() {
 
 	r.GET("/users/:id", controller.GetUser)
 	r.POST("/users", controller.CreateUser)
-	r.GET("/userinfo", controller.GetAllUser)
+	r.GET("/users", controller.GetAllUser)
 	r.POST("/login", controller.Login)
+	r.POST("/verify", controller.GetUserDetail)
 
 	r.GET("/events", controller.GetAllEvent)
-
-	r.GET("characters/:id", controller.GetCharacter)
-	r.GET("character", controller.GetCharacterWithTurn)
 
 	r.Run(":8080")
 }
