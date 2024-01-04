@@ -2,10 +2,12 @@ package controller
 
 import (
 	"app/database"
+	"app/middleware"
 	"app/model"
 	"app/repository"
 	"fmt"
 	"net/http"
+	"strings"
 
 	"github.com/gin-gonic/gin"
 	"golang.org/x/crypto/bcrypt"
@@ -21,6 +23,15 @@ func GetUser(c *gin.Context) {
 
 // 認証したユーザーのみがアクセスできる
 func GetUserDetail(c *gin.Context) {
+	tokenString := c.GetHeader("Authorization")
+	tokenString = strings.TrimPrefix(tokenString, "Bearer ")
+
+	token, err := middleware.VerifyToken(tokenString)
+	if err != nil {
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid token"})
+		return
+	}
+
 	var users []model.User
 	result := database.Db.Find(&users)
 	if result.Error != nil {
@@ -28,7 +39,11 @@ func GetUserDetail(c *gin.Context) {
 		return
 	}
 
-	c.JSON(http.StatusOK, users)
+	if claims, ok := token.Claims.(*middleware.Claims); ok && token.Valid {
+		c.JSON(http.StatusOK, gin.H{"email": claims.Email})
+	} else {
+		c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid token"})
+	}
 }
 
 func CreateUser(c *gin.Context) {
