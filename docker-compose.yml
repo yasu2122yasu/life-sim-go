@@ -40,7 +40,7 @@ services:
 
   # フロントエンドのコンテナ
   spa:
-    build: ./spa/reactapp
+    build: ./spa
     container_name: life-spa
     tty: true
     working_dir: /usr/src/app

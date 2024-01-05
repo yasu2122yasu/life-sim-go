@@ -1,26 +1,31 @@
 package middleware
 
 import (
+	"errors"
 	"fmt"
 	"time"
 
 	"github.com/golang-jwt/jwt/v4"
 )
 
-var jwtKey = []byte("secret") // 本番環境ではもっと安全な方法でキーを管理する
+// TODO: 本番環境では安全な方法でキーを生成し、管理する
+var jwtKey = []byte("your-very-strong-secret-key") // 安全なキーをここで設定
 
 type Claims struct {
 	Email string `json:"email"`
 	jwt.StandardClaims
 }
 
-// tokenの発行はフロントエンドで行い、クレームの設定と署名をバックエンドで行う
-func GenerateToken() (string, error) {
-	// JWTトークンの生成
+// トークンの発行。フロントエンドからクレーム（例：ユーザーのメール）を受け取り、トークンに含める
+func GenerateToken(email string) (string, error) {
+	// トークンの有効期限を設定
 	expirationTime := time.Now().Add(24 * time.Hour)
-	// claimsの設定
-	claims := &jwt.RegisteredClaims{
-		ExpiresAt: jwt.NewNumericDate(expirationTime),
+	// クレームの設定
+	claims := &Claims{
+		Email: email,
+		StandardClaims: jwt.StandardClaims{
+			ExpiresAt: expirationTime.Unix(),
+		},
 	}
 	// 署名
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
@@ -33,12 +38,24 @@ func GenerateToken() (string, error) {
 }
 
 func VerifyToken(tokenString string) (*jwt.Token, error) {
-	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
-		return []byte("secret"), nil // CreateTokenにて指定した文字列を使います
+	token, err := jwt.ParseWithClaims(tokenString, &Claims{}, func(token *jwt.Token) (interface{}, error) {
+		// 署名方法の検証
+		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
+			return nil, errors.New("Unexpected signing method")
+		}
+		// jwtKeyを使用してトークンを検証
+		return jwtKey, nil
 	})
-	fmt.Println(token)
+
 	if err != nil {
 		return nil, err
 	}
-	return token, nil
+
+	// キャストしてクレームを検証
+	if claims, ok := token.Claims.(*Claims); ok && token.Valid {
+		fmt.Printf("User Email: %v\n", claims.Email)
+		return token, nil
+	} else {
+		return nil, errors.New("Invalid token")
+	}
 }

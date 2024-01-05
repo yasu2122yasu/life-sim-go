@@ -12,10 +12,10 @@ func Router() {
 	r.Use(middleware.Cors())
 
 	r.GET("/users/:id", controller.GetUser)
-	r.POST("/users", controller.CreateUser)
+	r.POST("/create-user", controller.CreateUser)
 	r.GET("/users", controller.GetAllUser)
 	r.POST("/login", controller.Login)
-	r.POST("/verify", controller.GetUserDetail)
+	r.GET("/verify", controller.GetOnlyVerifyUser)
 
 	r.GET("/events", controller.GetAllEvent)
 
