@@ -79,7 +79,10 @@ func GetOnlyVerifyUser(c *gin.Context) {
 	}
 
 	if claims, ok := token.Claims.(*middleware.Claims); ok && token.Valid {
-		c.JSON(http.StatusOK, gin.H{"email": claims.Email})
+		c.JSON(http.StatusOK, gin.H{
+			"email": claims.Email,
+			"token": tokenString,
+		})
 	} else {
 		c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid token"})
 	}

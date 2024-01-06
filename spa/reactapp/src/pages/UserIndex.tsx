@@ -13,6 +13,12 @@ interface UserData {
 }
 
 export const UserIndex = () => {
+  // CSSを記述する
+  const textStyle = {
+    color: 'blue',
+    fontWeight: 'bold',
+  };
+
   const [userData, setUserData] = useState<UserData[]>([]); // ユーザーデータの配列
 
   useEffect(() => {
@@ -42,6 +48,9 @@ export const UserIndex = () => {
           <p>Updated At: {user.UpdatedAt}</p>
         </div>
       ))}
+      <Link to="/" style={textStyle}>
+        Homeに戻る
+      </Link>
     </div>
   );
 };

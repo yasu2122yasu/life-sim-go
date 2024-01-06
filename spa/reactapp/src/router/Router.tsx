@@ -17,7 +17,6 @@ export const Router: React.FC = () => {
       try {
         const response = await axios.post('http://localhost:8080/user/user-auth', { token: authToken });
         alert(response.data.authStatus);
-        alert('一時停止');
         setAuthStatus(response.data.authStatus); // 仮定：レスポンスにauthStatusが含まれている
       } catch (error) {
         console.error('Error fetching data: ', error);
@@ -36,7 +35,7 @@ export const Router: React.FC = () => {
         <Route path="/user/:userId" element={<UserDetail />} />
         <Route path="/user/login" element={<UserLogin />} />
         <Route path="/user/register" element={<UserRegister />} />
-        <Route path="/user/user-auth" element={authStatus ? <UserDetail /> : <Navigate to="/user/index" />} />
+        <Route path="/verify" element={<UserDetail />} />
       </Routes>
     </AuthProvider>
   );
